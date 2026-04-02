@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      body{
+        height:100vh;
+        margin:0;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background: linear-gradient(
+          to bottom,
+          #ce0303 0%,
+          #a31f1f 50%,
+          #2e0101 100%
+        );
+      }
+
+      input[type="checkbox"]{
+        display:none;
+      }
+
+      .glass-container{
+        width:100%;
+        max-width:350px;
+        height:450px;
+        backdrop-filter: blur(12px);
+        background: rgba(255,255,255,0.05);
+        border-radius:20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        position:relative;
+        overflow:hidden;
+      }
+
+      .form-wrapper{
+        position:absolute;
+        width:100%;
+        height:200%;
+        top:0;
+        transition:0.6s ease-in-out;
+      }
+
+      .login-form, .signup-form{
+        height:50%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+      }
+
+      #toggle:checked ~ .glass-container .form-wrapper{
+        transform: translateY(-50%);
+      }
+
+      .form-box{
+        width:85%;
+        color:white;
+      }
+
+      .form-control{
+        background: transparent;
+        border:1px solid rgba(255,255,255,0.2);
+        color:#fff;
+      }
+
+      .form-control::placeholder{
+        color:#aaa;
+      }
+
+      .btn-custom{
+        width:100%;
+      }
+
+      @media(max-width:768px){
+        .glass-container{
+          max-width:90%;
+          height:500px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <input type="checkbox" id="toggle">
+
+    <div class="glass-container">
+
+      <div class="form-wrapper">
+
+        <!-- LOGIN -->
+        <div class="login-form">
+          <div class="form-box">
+            <h3 class="text-center mb-4">Login</h3>
+
+            <input type="text" class="form-control mb-3" placeholder="Username">
+            <input type="password" id="password" class="form-control mb-2" placeholder="Password">
+
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="showPass">
+              <label class="form-check-label" for="showPass">Show Password</label>
+            </div>
+
+            <button class="btn btn-light btn-custom mb-2">Login</button>
+            <label for="toggle" class="btn btn-outline-light btn-custom">Sign Up</label>
+          </div>
+        </div>
+
+        <!-- SIGNUP -->
+        <div class="signup-form">
+          <div class="form-box">
+            <h3 class="text-center mb-3">Sign Up</h3>
+
+            <input type="text" class="form-control mb-2" placeholder="Full Name">
+            <input type="email" class="form-control mb-2" placeholder="Email">
+            <input type="date" class="form-control mb-2">
+            <input type="text" class="form-control mb-2" placeholder="Student Number">
+            <input type="text" class="form-control mb-2" placeholder="Course">
+            <input type="text" class="form-control mb-3" placeholder="Year">
+
+            <button class="btn btn-light btn-custom mb-2">Register</button>
+            <label for="toggle" class="btn btn-outline-light btn-custom">Back to Login</label>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const checkbox = document.getElementById('showPass');
+      const password = document.getElementById('password');
+
+      checkbox.addEventListener('change', function(){
+        password.type = this.checked ? 'text' : 'password';
+      });
+    </script>
+  </body>
+</html>
