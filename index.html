@@ -10,34 +10,86 @@
    rel="stylesheet"integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"crossorigin="anonymous">
 
   <style>
-    .banner {
-      background-color: #ced0d3;
+    body {
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      font-family: Arial, sans-serif;
     }
+
+    /* HEADER / BANNER */
+    .banner {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .banner h4 {
+      font-weight: 800;
+      margin: 0;
+    }
+
+    /* BUTTONS */
+    .btn-light {
+      background-color: #ffffff;
+      border: none;
+      color: #1e3a8a;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn-light:hover {
+      background-color: #e0ecff;
+      color: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    /* DROPDOWN */
+    .dropdown-menu {
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .dropdown-item:hover {
+      background-color: #eef2ff;
+      color: #1e3a8a;
+    }
+
+    /* SWITCH */
+    .form-check-input {
+      cursor: pointer;
+      background-color: #c7d2fe;
+      border: none;
+    }
+
+    .form-check-input:checked {
+      background-color: #38bdf8;
+    }
+
   </style>
 </head>
 
 <body>
   <!-- BANNER -->
-  <div class="container-fluid banner text-black py-4">
+  <div class="container-fluid banner py-4">
     <div class="row align-items-center">
       <div class="col">
         <h4>PapeLESS</h4>
       </div>
-      <div class="col">
+      <div class="col-4">
         <div class="row align-items-center text-end">
           <div class="col">
-            <button class="btn btn-light btn-sm rounded-5 w-50">
+            <button class="btn btn-light btn-md rounded-5 w-50">
               Login
             </button>
           </div>
-          <div class="col">
+          <div class="col-4">
             <div class="form-check form-switch d-flex justify-content-end">
               <input class="form-check-input" type="checkbox">
             </div>
           </div>
-          <div class="col">
+          <div class="col-4">
             <div class="dropdown">
-              <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
+              <button class="btn btn-light btn-md" data-bs-toggle="dropdown">
                 ☰
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
