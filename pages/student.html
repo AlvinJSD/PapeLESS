@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard – PapeLESS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="../assets/css/dashboard.css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- Brand -->
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
+      <span class="sidebar-brand-name">PapeLESS</span>
+    </div>
+
+    <!-- User Info -->
+    <div class="sidebar-user">
+      <div class="d-flex align-items-center gap-2">
+        <div class="sidebar-user-avatar" id="sidebarAvatar">S</div>
+        <div>
+          <div class="sidebar-user-name" id="sidebarName">Student</div>
+          <div class="sidebar-user-role">Student</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Main</div>
+      <a class="sidebar-link active" onclick="showPage('dashboard', this)">
+        <i class="bi bi-grid-1x2"></i> Dashboard
+      </a>
+      <a class="sidebar-link" onclick="showPage('requirements', this)">
+        <i class="bi bi-file-earmark-text"></i> Requirements
+        <span class="sidebar-badge d-none" id="badgePending">0</span>
+      </a>
+      <a class="sidebar-link" onclick="showPage('submissions', this)">
+        <i class="bi bi-send-check"></i> My Submissions
+      </a>
+      <a class="sidebar-link" onclick="showPage('feedback', this)">
+        <i class="bi bi-chat-square-text"></i> Feedback
+        <span class="sidebar-badge d-none" id="badgeFeedback">0</span>
+      </a>
+
+      <div class="sidebar-section-label mt-2">Info</div>
+      <a class="sidebar-link" onclick="showPage('announcements', this)">
+        <i class="bi bi-megaphone"></i> Announcements
+      </a>
+      <a class="sidebar-link" onclick="showPage('profile', this)">
+        <i class="bi bi-person-circle"></i> Profile
+      </a>
+    </nav>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <a class="sidebar-link" onclick="logout()">
+        <i class="bi bi-box-arrow-left"></i> Log Out
+      </a>
+    </div>
+  </aside>
+
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-content">
+
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+        <span class="navbar-page-title" id="navPageTitle">Dashboard</span>
+      </div>
+      <div class="navbar-right">
+        <div class="navbar-icon-btn" title="Notifications">
+          <i class="bi bi-bell"></i>
+          <span class="notif-dot" id="notifDot"></span>
+        </div>
+        <div class="navbar-avatar" id="navAvatar" title="Profile" onclick="showPage('profile', null)">S</div>
+      </div>
+    </nav>
+
+    <!-- ===== PAGE: DASHBOARD ===== -->
+    <div class="page-content" id="page-dashboard">
+      <div class="page-header">
+        <div class="page-header-title" id="welcomeMsg">Welcome back!</div>
+        <div class="page-header-sub">Here's your OJT progress overview.</div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="bi bi-file-earmark-text"></i></div>
+            <div>
+              <div class="stat-value" id="statTotal">0</div>
+              <div class="stat-label">Total Reqs</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="bi bi-check-circle"></i></div>
+            <div>
+              <div class="stat-value" id="statApproved">0</div>
+              <div class="stat-label">Approved</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon yellow"><i class="bi bi-hourglass-split"></i></div>
+            <div>
+              <div class="stat-value" id="statPending">0</div>
+              <div class="stat-label">Pending</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon red"><i class="bi bi-x-circle"></i></div>
+            <div>
+              <div class="stat-value" id="statRejected">0</div>
+              <div class="stat-label">For Revision</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Submissions + Announcements -->
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <div class="section-card">
+            <div class="section-card-header">
+              <span class="section-card-title"><i class="bi bi-clock-history"></i> Recent Submissions</span>
+              <button class="btn-sm-outline" onclick="showPage('submissions', null)">View All</button>
+            </div>
+            <div class="section-card-body p-0">
+              <div id="recentSubmissionsList">
+                <div class="empty-state"><i class="bi bi-inbox"></i><p>No submissions yet.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="section-card">
+            <div class="section-card-header">
+              <span class="section-card-title"><i class="bi bi-megaphone"></i> Announcements</span>
+            </div>
+            <div class="section-card-body" id="dashboardAnnouncements">
+              <div class="empty-state"><i class="bi bi-megaphone"></i><p>No announcements.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: REQUIREMENTS ===== -->
+    <div class="page-content d-none" id="page-requirements">
+      <div class="page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div>
+          <div class="page-header-title">Requirements</div>
+          <div class="page-header-sub">Upload and track your OJT document requirements.</div>
+        </div>
+        <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#uploadModal">
+          <i class="bi bi-cloud-upload me-2"></i>Upload Document
+        </button>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header">
+          <span class="section-card-title"><i class="bi bi-files"></i> All Requirements</span>
+          <div class="d-flex gap-2">
+            <select class="form-control-dark form-select" id="filterStatus" onchange="filterRequirements()" style="width:auto;font-size:0.82rem;padding:5px 10px;">
+              <option value="">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">For Revision</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-0">
+          <table class="table-custom">
+            <thead>
+              <tr>
+                <th>Document</th>
+                <th>Type</th>
+                <th>Submitted</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="requirementsTableBody">
+              <tr><td colspan="5"><div class="empty-state"><i class="bi bi-inbox"></i><p>No documents uploaded yet.</p></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: SUBMISSIONS ===== -->
+    <div class="page-content d-none" id="page-submissions">
+      <div class="page-header">
+        <div class="page-header-title">My Submissions</div>
+        <div class="page-header-sub">Full history of your document submissions and their status.</div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-body p-0">
+          <table class="table-custom">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Document Name</th>
+                <th>Type</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+                <th>Adviser Notes</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody">
+              <tr><td colspan="6"><div class="empty-state"><i class="bi bi-inbox"></i><p>No submissions found.</p></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: FEEDBACK ===== -->
+    <div class="page-content d-none" id="page-feedback">
+      <div class="page-header">
+        <div class="page-header-title">Adviser Feedback</div>
+        <div class="page-header-sub">Review comments and feedback from your adviser.</div>
+      </div>
+      <div id="feedbackList">
+        <div class="empty-state"><i class="bi bi-chat-square-dots"></i><p>No feedback received yet.</p></div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: ANNOUNCEMENTS ===== -->
+    <div class="page-content d-none" id="page-announcements">
+      <div class="page-header">
+        <div class="page-header-title">Announcements</div>
+        <div class="page-header-sub">Updates and notices from your adviser.</div>
+      </div>
+      <div id="announcementsList">
+        <div class="empty-state"><i class="bi bi-megaphone"></i><p>No announcements yet.</p></div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: PROFILE ===== -->
+    <div class="page-content d-none" id="page-profile">
+      <div class="page-header">
+        <div class="page-header-title">My Profile</div>
+        <div class="page-header-sub">Your student information.</div>
+      </div>
+      <div class="row g-3">
+        <div class="col-lg-5">
+          <div class="section-card text-center p-4">
+            <div class="profile-avatar mx-auto mb-3" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-dark));display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:white;" id="profileAvatarLarge">S</div>
+            <h5 class="mb-1" id="profileFullName" style="color:var(--text-primary);">—</h5>
+            <p style="color:var(--text-muted);font-size:0.82rem;" id="profileStudentNo">—</p>
+            <span class="badge-status badge-approved">Student</span>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="section-card">
+            <div class="section-card-header"><span class="section-card-title"><i class="bi bi-person-lines-fill"></i> Student Details</span></div>
+            <div class="section-card-body">
+              <table class="table-custom">
+                <tbody>
+                  <tr><td style="color:var(--text-muted);width:40%">Full Name</td><td id="pName">—</td></tr>
+                  <tr><td style="color:var(--text-muted)">Student Number</td><td id="pStudentNo">—</td></tr>
+                  <tr><td style="color:var(--text-muted)">Course</td><td id="pCourse">—</td></tr>
+                  <tr><td style="color:var(--text-muted)">Section</td><td id="pSection">—</td></tr>
+                  <tr><td style="color:var(--text-muted)">Email</td><td id="pEmail">—</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== UPLOAD MODAL ===== -->
+<div class="modal fade" id="uploadModal" tabindex="-1">
+  <div class="modal-dialog modal-dark modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-cloud-upload me-2" style="color:var(--red-light)"></i>Upload Document</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="uploadForm">
+          <div class="mb-3">
+            <label class="form-label-dark">Document Name</label>
+            <input type="text" class="form-control form-control-dark" id="docName" placeholder="e.g. Endorsement Letter" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label-dark">Document Type</label>
+            <select class="form-control form-control-dark" id="docType" required>
+              <option value="">Select type...</option>
+              <option>Pre-OJT Requirements</option>
+              <option>Weekly Report</option>
+              <option>Endorsement Letter</option>
+              <option>Company Acceptance</option>
+              <option>Completion Certificate</option>
+              <option>Final Report</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label-dark">File (Simulated)</label>
+            <input type="file" class="form-control form-control-dark" id="docFile" accept=".pdf,.doc,.docx,.jpg,.png" />
+            <small style="color:var(--text-muted);font-size:0.78rem;">Accepted: PDF, DOC, DOCX, JPG, PNG</small>
+          </div>
+          <div class="mb-2">
+            <label class="form-label-dark">Notes (Optional)</label>
+            <textarea class="form-control form-control-dark" id="docNotes" rows="2" placeholder="Any notes for your adviser..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-sm-outline" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn-sm-red" onclick="submitDocument()">
+          <i class="bi bi-cloud-upload me-1"></i>Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container-custom" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/student.js"></script>
+</body>
+</html>

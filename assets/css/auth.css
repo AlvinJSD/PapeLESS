@@ -1,0 +1,467 @@
+/* ============================================================
+   auth.css — PapeLESS Landing, Login, Signup Styles
+   ============================================================ */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --red: #C0392B;
+  --red-dark: #922B21;
+  --red-light: #E74C3C;
+  --dark: #111418;
+  --dark-2: #1A1F26;
+  --dark-3: #232A33;
+  --dark-4: #2C3440;
+  --text-primary: #F0F2F5;
+  --text-secondary: #A0A8B3;
+  --text-muted: #6B7280;
+  --border: rgba(255,255,255,0.08);
+  --border-light: rgba(255,255,255,0.12);
+  --card-bg: rgba(26, 31, 38, 0.95);
+  --input-bg: rgba(255,255,255,0.06);
+  --radius: 12px;
+  --radius-lg: 18px;
+  --shadow: 0 20px 60px rgba(0,0,0,0.5);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ---------- LANDING SECTION ---------- */
+.landing-section {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(192,57,43,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 10% 80%, rgba(192,57,43,0.08) 0%, transparent 50%),
+    linear-gradient(160deg, #111418 0%, #1a1f26 50%, #0e1117 100%);
+  position: relative;
+}
+
+/* ---------- Auth Navbar ---------- */
+.auth-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(17,20,24,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--red);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.brand-icon-dark {
+  background: var(--dark-3);
+  border: 1px solid var(--border-light);
+}
+
+/* ---------- Buttons ---------- */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.btn-ghost:hover {
+  background: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-light);
+}
+
+.btn-primary-custom {
+  background: var(--red);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.btn-primary-custom:hover, .btn-primary-custom:focus {
+  background: var(--red-light);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(192,57,43,0.4);
+}
+
+.btn-outline-custom {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 8px 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.btn-outline-custom:hover {
+  background: var(--input-bg);
+  border-color: rgba(255,255,255,0.35);
+  color: white;
+}
+
+.btn-dark-custom {
+  background: var(--dark-3);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.btn-dark-custom:hover {
+  background: var(--dark-4);
+  color: white;
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* ---------- Hero ---------- */
+.hero-content { padding: 60px 0; }
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(192,57,43,0.15);
+  border: 1px solid rgba(192,57,43,0.35);
+  color: #E8897F;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1.0;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.text-accent { color: var(--red-light); }
+
+.hero-desc {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 460px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* Hero Visual */
+.hero-visual {
+  position: relative;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(192,57,43,0.2);
+  box-shadow:
+    0 0 60px rgba(192,57,43,0.1),
+    inset 0 0 60px rgba(192,57,43,0.05);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+
+.floating-card {
+  position: absolute;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  white-space: nowrap;
+}
+
+.floating-card i { font-size: 1.1rem; color: var(--red-light); }
+
+.card-1 { top: 30px; left: 10px; animation: float1 5s ease-in-out infinite; }
+.card-2 { top: 90px; right: 5px; animation: float2 6s ease-in-out infinite; }
+.card-3 { bottom: 50px; left: 30px; animation: float3 5.5s ease-in-out infinite; }
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes float3 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ---------- Coordinator Hidden Button ---------- */
+.coordinator-access {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 200;
+}
+
+.btn-coordinator {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  color: var(--text-muted);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-coordinator:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-secondary);
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* ---------- AUTH SECTIONS ---------- */
+.auth-section {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(192,57,43,0.12) 0%, transparent 60%),
+    linear-gradient(180deg, #111418 0%, #0e1117 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.auth-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  position: relative;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+  animation: slideUp 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+.auth-card-wide { max-width: 560px; }
+.auth-card-coordinator { max-width: 400px; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-logo {
+  display: flex;
+  justify-content: center;
+}
+.auth-logo .brand-icon {
+  width: 52px;
+  height: 52px;
+  font-size: 1.4rem;
+  border-radius: 12px;
+}
+
+.auth-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-top: 4px;
+}
+
+/* ---------- Role Tabs ---------- */
+.role-tabs {
+  display: flex;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.role-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.role-tab.active {
+  background: var(--red);
+  color: white;
+  box-shadow: 0 2px 10px rgba(192,57,43,0.4);
+}
+
+/* ---------- Form Controls ---------- */
+.form-label {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.input-icon-wrap {
+  position: relative;
+}
+
+.input-icon-wrap i {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.custom-input {
+  background: var(--input-bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 9px !important;
+  color: var(--text-primary) !important;
+  padding: 10px 12px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.9rem !important;
+  transition: var(--transition) !important;
+}
+
+.input-icon-wrap .custom-input { padding-left: 40px !important; }
+
+.custom-input::placeholder { color: var(--text-muted) !important; }
+
+.custom-input:focus {
+  background: rgba(255,255,255,0.09) !important;
+  border-color: rgba(192,57,43,0.5) !important;
+  box-shadow: 0 0 0 3px rgba(192,57,43,0.12) !important;
+  outline: none !important;
+}
+
+/* ---------- Back Button ---------- */
+.btn-back {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: var(--transition);
+}
+.btn-back:hover { color: var(--text-primary); }
+
+/* ---------- Auth Footer ---------- */
+.auth-footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.auth-footer a {
+  color: var(--red-light);
+  text-decoration: none;
+  font-weight: 500;
+}
+.auth-footer a:hover { text-decoration: underline; }
+
+/* ---------- Alert Overrides ---------- */
+.alert-danger {
+  background: rgba(192,57,43,0.15) !important;
+  border: 1px solid rgba(192,57,43,0.3) !important;
+  color: #F1948A !important;
+  border-radius: 8px !important;
+}
+
+.alert-success {
+  background: rgba(39,174,96,0.15) !important;
+  border: 1px solid rgba(39,174,96,0.3) !important;
+  color: #82E0AA !important;
+  border-radius: 8px !important;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 575px) {
+  .auth-card { padding: 30px 22px; }
+  .hero-content { padding: 40px 0; }
+  .hero-title { font-size: 2.6rem; }
+}

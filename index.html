@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PapeLESS – OJT Document Tracking System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="assets/css/auth.css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ========== HERO / LANDING SECTION ========== -->
+<section id="landing" class="landing-section d-flex flex-column">
+
+  <!-- Navbar -->
+  <nav class="auth-navbar d-flex align-items-center justify-content-between px-4 py-3">
+    <div class="brand d-flex align-items-center gap-2">
+      <div class="brand-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
+      <span class="brand-name">PapeLESS</span>
+    </div>
+    <div class="nav-links d-flex gap-2">
+      <button class="btn btn-ghost" onclick="showSection('login')">Log In</button>
+      <button class="btn btn-primary-custom" onclick="showSection('signup')">Sign Up</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero-content flex-grow-1 d-flex align-items-center">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-6">
+          <div class="hero-badge mb-3">OJT Document Tracking System</div>
+          <h1 class="hero-title">Go <span class="text-accent">Paperless.</span><br/>Track Smarter.</h1>
+          <p class="hero-desc mt-3 mb-4">PapeLESS streamlines OJT document submission, adviser review, and coordinator management — all in one clean digital workspace.</p>
+          <div class="d-flex gap-3 flex-wrap">
+            <button class="btn btn-primary-custom btn-lg" onclick="showSection('signup')">
+              <i class="bi bi-person-plus me-2"></i>Get Started
+            </button>
+            <button class="btn btn-outline-custom btn-lg" onclick="showSection('login')">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Log In
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-block">
+          <div class="hero-visual">
+            <div class="floating-card card-1">
+              <i class="bi bi-file-earmark-check"></i>
+              <span>Document Submitted</span>
+            </div>
+            <div class="floating-card card-2">
+              <i class="bi bi-patch-check-fill text-success"></i>
+              <span>Approved by Adviser</span>
+            </div>
+            <div class="floating-card card-3">
+              <i class="bi bi-people-fill"></i>
+              <span>3 Students Pending</span>
+            </div>
+            <div class="hero-circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coordinator hidden button -->
+  <div class="coordinator-access">
+    <button class="btn-coordinator" onclick="showSection('coordinator-login')" title="Coordinator Access">
+      <i class="bi bi-shield-lock"></i>
+    </button>
+  </div>
+</section>
+
+<!-- ========== LOGIN SECTION ========== -->
+<section id="login" class="auth-section d-none">
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <button class="btn-back" onclick="showSection('landing')"><i class="bi bi-arrow-left"></i> Back</button>
+      <div class="auth-logo mb-3">
+        <div class="brand-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
+      </div>
+      <h2 class="auth-title">Welcome Back</h2>
+      <p class="auth-subtitle">Log in to your PapeLESS account</p>
+
+      <!-- Role Tabs -->
+      <div class="role-tabs mb-4">
+        <button class="role-tab active" onclick="switchLoginRole('student', this)">Student</button>
+        <button class="role-tab" onclick="switchLoginRole('adviser', this)">Adviser</button>
+      </div>
+
+      <!-- Student Login Form -->
+      <form id="studentLoginForm" class="login-form" onsubmit="handleStudentLogin(event)">
+        <div class="form-group mb-3">
+          <label for="studentNumber" class="form-label">Student Number</label>
+          <div class="input-icon-wrap">
+            <i class="bi bi-person-badge"></i>
+            <input type="text" class="form-control custom-input" id="studentNumber" name="studentNumber"
+              placeholder="e.g. 2021-00001" required />
+          </div>
+        </div>
+        <div class="form-group mb-4">
+          <label for="birthdate" class="form-label">Birthdate</label>
+          <div class="input-icon-wrap">
+            <i class="bi bi-calendar3"></i>
+            <input type="date" class="form-control custom-input" id="birthdate" name="birthdate" required />
+          </div>
+        </div>
+        <div id="loginError" class="alert alert-danger d-none py-2 small"></div>
+        <input type="submit" class="btn btn-primary-custom w-100" value="Log In as Student" />
+      </form>
+
+      <!-- Adviser Login Form -->
+      <form id="adviserLoginForm" class="login-form d-none" onsubmit="handleAdviserLogin(event)">
+        <div class="form-group mb-3">
+          <label for="adviserUsername" class="form-label">Username</label>
+          <div class="input-icon-wrap">
+            <i class="bi bi-person"></i>
+            <input type="text" class="form-control custom-input" id="adviserUsername" name="adviserUsername"
+              placeholder="Adviser username" required />
+          </div>
+        </div>
+        <div class="form-group mb-4">
+          <label for="adviserPassword" class="form-label">Password</label>
+          <div class="input-icon-wrap">
+            <i class="bi bi-lock"></i>
+            <input type="password" class="form-control custom-input" id="adviserPassword" name="adviserPassword"
+              placeholder="••••••••" required />
+          </div>
+        </div>
+        <div id="adviserLoginError" class="alert alert-danger d-none py-2 small"></div>
+        <input type="submit" class="btn btn-primary-custom w-100" value="Log In as Adviser" />
+      </form>
+
+      <p class="auth-footer mt-3">Don't have an account? <a href="#" onclick="showSection('signup')">Request Sign Up</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SIGN UP SECTION ========== -->
+<section id="signup" class="auth-section d-none">
+  <div class="auth-wrapper">
+    <div class="auth-card auth-card-wide">
+      <button class="btn-back" onclick="showSection('landing')"><i class="bi bi-arrow-left"></i> Back</button>
+      <div class="auth-logo mb-2">
+        <div class="brand-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
+      </div>
+      <h2 class="auth-title">Request Sign Up</h2>
+      <p class="auth-subtitle">For students only — your adviser will review and approve your request.</p>
+
+      <form id="signupForm" onsubmit="handleSignup(event)">
+        <div class="row my-3">
+          <div class="col-md-6">
+            <label for="signupFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control custom-input" id="signupFirstName" name="firstName"
+              placeholder="Juan" required />
+          </div>
+          <div class="col-md-6">
+            <label for="signupLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control custom-input" id="signupLastName" name="lastName"
+              placeholder="Dela Cruz" required />
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-md-6">
+            <label for="signupStudentNo" class="form-label">Student Number</label>
+            <input type="text" class="form-control custom-input" id="signupStudentNo" name="studentNo"
+              placeholder="2021-00001" required />
+          </div>
+          <div class="col-md-6">
+            <label for="signupBirthdate" class="form-label">Birthdate</label>
+            <input type="date" class="form-control custom-input" id="signupBirthdate" name="birthdate" required />
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-md-6">
+            <label for="signupCourse" class="form-label">Course</label>
+            <input type="text" class="form-control custom-input" id="signupCourse" name="course"
+              placeholder="BS Computer Science" required />
+          </div>
+          <div class="col-md-6">
+            <label for="signupSection" class="form-label">Section</label>
+            <input type="text" class="form-control custom-input" id="signupSection" name="section"
+              placeholder="CS4A" required />
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-12">
+            <label for="signupEmail" class="form-label">Email Address</label>
+            <input type="email" class="form-control custom-input" id="signupEmail" name="email"
+              placeholder="student@email.com" required />
+          </div>
+        </div>
+        <div id="signupMessage" class="alert d-none py-2 small mt-2"></div>
+        <div class="row my-3">
+          <div class="col-12">
+            <input type="submit" class="btn btn-primary-custom w-100" value="Submit Sign Up Request" />
+          </div>
+        </div>
+      </form>
+
+      <p class="auth-footer">Already have an account? <a href="#" onclick="showSection('login')">Log In</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COORDINATOR LOGIN SECTION ========== -->
+<section id="coordinator-login" class="auth-section d-none">
+  <div class="auth-wrapper">
+    <div class="auth-card auth-card-coordinator">
+      <button class="btn-back" onclick="showSection('landing')"><i class="bi bi-arrow-left"></i> Back</button>
+      <div class="auth-logo mb-3">
+        <div class="brand-icon brand-icon-dark"><i class="bi bi-shield-lock-fill"></i></div>
+      </div>
+      <h2 class="auth-title">Coordinator Access</h2>
+      <p class="auth-subtitle">Restricted area. Authorized personnel only.</p>
+
+      <form id="coordinatorLoginForm" onsubmit="handleCoordinatorLogin(event)">
+        <div class="form-group mb-3">
+          <label for="coordUsername" class="form-label">Username</label>
+          <div class="input-icon-wrap">
+            <i class="bi bi-person-gear"></i>
+            <input type="text" class="form-control custom-input" id="coordUsername" name="coordUsername"
+              placeholder="Coordinator username" required />
+          </div>
+        </div>
+        <div class="form-group mb-4">
+          <label for="coordPassword" class="form-label">Password</label>
+          <div class="input-icon-wrap">
+            <i class="bi bi-lock-fill"></i>
+            <input type="password" class="form-control custom-input" id="coordPassword" name="coordPassword"
+              placeholder="••••••••" required />
+          </div>
+        </div>
+        <div id="coordLoginError" class="alert alert-danger d-none py-2 small"></div>
+        <input type="submit" class="btn btn-dark-custom w-100" value="Access Coordinator Panel" />
+      </form>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/auth.js"></script>
+</body>
+</html>
